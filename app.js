@@ -185,7 +185,7 @@ app.post("/addNewRental",async (req, res) => {
 
 
 //sign up user
-app.post("/signup", async (req,res) =>{
+app.post("/signup1", async (req,res) =>{
     try {
         let result = await UserInfo.find({"userName":req.body.userName})
         
@@ -326,6 +326,24 @@ app.post("/bookListing", async (req,res) => {
 app.post("/myBooking",async (req,res) =>{
     try {
         let result = await RentalListing.find({"is_rented_by":req.body._id})
+        res.json(result)
+        res.end()
+        
+    } catch (err) {
+        res.json(err)
+        res.end()
+    }
+})
+
+app.post("/signUp",async (req,res) =>{
+    try {
+        let UserInfo1 = new UserInfo({
+            userName: req.body.userName,
+            password:req.body.password
+        });
+
+        let result = await UserInfo1.save();
+        
         res.json(result)
         res.end()
         
