@@ -184,6 +184,42 @@ app.post("/addNewRental",async (req, res) => {
 });
 
 
+//sign up user
+app.post("/signup", async (req,res) =>{
+    try {
+        let result = await UserInfo.find({"userName":req.body.userName})
+        
+        
+        if(result.length === 0){
+            res.send({
+                "id":"user id not found",
+                "isLogin":false
+            })
+            res.end()
+            return ;
+        }
+
+        if(result[0].userName == req.body.userName && result[0].password == req.body.password){
+            res.send({
+                "id":result[0]._id,
+                "isLogin":true
+            })
+            res.end()
+            return ;
+        }else{
+            res.send({
+                "id":null,
+                "isLogin":false
+            })
+            res.end()
+            return;
+        }
+
+    } catch (err) {
+        res.send(`${err}`)
+    }
+})
+
 //login user
 app.post("/login", async (req, res) => {
     
@@ -299,7 +335,23 @@ app.post("/myBooking",async (req,res) =>{
     }
 })
 
-//
+// app.post("/addFavorite", async(req,res)=>{
+//     try {
+
+//         const filter = { _id: req.body._id };
+//         const update = { 
+//         let result = await RentalListing.find({"is_rented_by":req.body._id})
+            
+//         };
+
+//         let result = await RentalListing.findOneAndUpdate(filter,update)
+//         res.json(result)
+//         res.end()
+//     } catch (err) {
+//         res.json(error)
+//         res.end()
+//     }
+// })
 
 app.listen(3000, () =>{
     console.log("Server running at 3000")
