@@ -1,18 +1,11 @@
-// const express = require('express')
 import express from 'express'
-// var cors = require('cors')
 import cors from 'cors'
 const app = express()
-// const router = express.Router()
 
-// const dotenv = require('dotenv');
 import dotenv from 'dotenv'
-// const mongoose = require('mongoose')
 import mongoose from 'mongoose'
 
-// const RentalListing = require("./models/RentalListing");
 import RentalListing from './models/RentalListing.js'
-// const UserInfo = require("./models/UserInfo")
 import UserInfo from './models/UserInfo.js'
 
 import { calculateStayDuration } from './util.js';
@@ -25,11 +18,21 @@ app.use(express.json());
 
 app.use(express.urlencoded({ extended: true}))
 
+const uri = process.env.DB_CONNECT;
 
 // online
-mongoose.connect('mongodb+srv://alphastar1:FGpKmV3QhibXWp0d@learningtodoapp.5yrlobc.mongodb.net/?retryWrites=true&w=majority&appName=learningtodoapp')
+// mongoose.connect('mongodb+srv://alphastar1:FGpKmV3QhibXWp0d@learningtodoapp.5yrlobc.mongodb.net/?retryWrites=true&w=majority&appName=learningtodoapp')
+//                 .then(() =>{
+//                     console.log("Connection succefully")
+//                 })
+//                 .catch((err) => {
+//                     console.error(`No connection ${err}`)
+//                 })
+
+// online
+mongoose.connect(uri)
                 .then(() =>{
-                    console.log("Connection succefully")
+                    console.log("Connected successfully to DB")
                 })
                 .catch((err) => {
                     console.error(`No connection ${err}`)
